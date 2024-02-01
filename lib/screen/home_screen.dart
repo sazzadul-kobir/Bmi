@@ -3,6 +3,7 @@
 import 'package:bmi_calculator2/constraint.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,6 +14,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Gender selectedGender=Gender.male;
+  double height=150;
+  int age=0;
+  int weight=1;
 
   void whichGender(Gender gender){
     setState(() {
@@ -58,11 +62,70 @@ class _HomeState extends State<Home> {
               )
 
             ],
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height*0.03,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+
+              HeightSlider(context),//height slider
+
+            ],
           )
         ],
       ),
 
     );
+  }
+
+  Neumorphic HeightSlider(BuildContext context) {
+    return Neumorphic(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height*0.55,
+                width: MediaQuery.of(context).size.width*0.36,
+
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text("Height", style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: kTextColor
+                    ),),
+
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height*0.50,
+                      child: SfSlider.vertical(
+                          thumbIcon: NeumorphicIcon(Icons.circle),
+                          stepSize: 1,
+                          value: height,
+                          min:100,
+                          max: 230,
+                          showTicks: true,
+                          showLabels: true,
+                          interval: 20,
+                          minorTicksPerInterval: 3,
+                          enableTooltip: true,
+
+                          tooltipPosition: SliderTooltipPosition.right,
+                          activeColor: kActiveColor,
+
+                          onChanged: (value){
+                            setState(() {
+                              height=value;
+                            });
+                          }
+                      ),
+                    )
+
+
+                  ],
+                ),
+              ),
+            );
   }
 
   GestureDetector Gendercard({
@@ -91,8 +154,10 @@ class _HomeState extends State<Home> {
               ),
             );
   }
+
 }
 enum Gender{
  female,
  male,
 }
+
