@@ -1,6 +1,7 @@
 
 
 import 'package:bmi_calculator2/constraint.dart';
+import 'package:bmi_calculator2/widgets/value_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -72,6 +73,54 @@ class _HomeState extends State<Home> {
 
               HeightSlider(context),//height slider
 
+              SizedBox(
+                height: MediaQuery.of(context).size.height*0.55,
+                child:Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ValueSelector(
+                        label: 'Weight',
+                        value: weight,
+                        onIncrement: (){
+                          setState(() {
+                            if(weight<200){
+                              weight++;
+                            }
+                          });
+                        },
+                        onDecrement: (){
+                          setState(() {
+                            if(weight>0){
+                              weight--;
+                            }
+                          });
+                        }
+                    ),
+                    SizedBox(
+                      height: 0,
+                    ),
+                    ValueSelector(
+                        label: 'Age',
+                        value: age,
+                        onIncrement: (){
+                          setState(() {
+                            if(age<100){
+                              age++;
+                            }
+                          });
+                        },
+                        onDecrement: (){
+                          setState(() {
+                            if(age>0){
+                              age--;
+                            }
+                          });
+                        }
+                    )
+                  ],
+                ) ,
+              )
+
             ],
           )
         ],
@@ -106,6 +155,7 @@ class _HomeState extends State<Home> {
                           max: 230,
                           showTicks: true,
                           showLabels: true,
+
                           interval: 20,
                           minorTicksPerInterval: 3,
                           enableTooltip: true,
