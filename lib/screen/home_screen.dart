@@ -1,10 +1,13 @@
 
 
 import 'package:bmi_calculator2/constraint.dart';
+import 'package:bmi_calculator2/screen/resul_screen.dart';
 import 'package:bmi_calculator2/widgets/value_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
+
+import 'helper/calculation.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -43,6 +46,7 @@ class _HomeState extends State<Home> {
 
 
       body: Column(
+
         children: [
           SizedBox(
             height: 15,
@@ -122,7 +126,32 @@ class _HomeState extends State<Home> {
               )
 
             ],
-          )
+          ),
+         NeumorphicButton(
+           margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.08),
+
+           padding: EdgeInsets.symmetric(
+             horizontal:MediaQuery.of(context).size.width * 0.31 ,
+               vertical: 13,
+            ),
+           style: NeumorphicStyle(
+             color: kActiveColor
+           ),
+           child: Text("Let's Begin",style:TextStyle(
+            color: Colors.white,
+             fontWeight: FontWeight.bold,
+             fontSize: 18
+           ),),
+           onPressed: (){
+             BmiCalculation obj=BmiCalculation(
+               height: height,
+               weight: weight,
+             );
+             Navigator
+                 .push(context, MaterialPageRoute(builder: (context)=>ResultScreen(
+               bmi:obj.bmiequation() , result: obj.result(),)));
+           },
+         )
         ],
       ),
 
